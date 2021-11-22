@@ -1,0 +1,49 @@
+<?php
+include 'connection.php';
+$query=mysqli_query($con,"SELECT * FROM `registration` JOIN login ON registration.Login_id=login.Login_id");
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<center><table border=2px>
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Mobno</th>
+			<th>Files</th>
+			<th>Username</th>
+			<th>Password</th>
+			<th>Action</th>
+			<th>Update</th>
+
+		</tr>
+		<?php
+		while ($row=mysqli_fetch_assoc($query)) {
+			// code...
+		?>
+		<tr>
+			<td><?php echo $row['Login_id']?></td>
+			<td><?php echo $row['Name']?></td>
+			<td><?php echo $row['email_id'] ?></td>
+			<td><?php echo $row['mob_no']?></td>
+			<td><?php echo $row['Files']?></td>
+			<td><?php echo $row['Username']?></td>
+			<td><?php echo $row['Password']?></td>
+			<td><a href="delete.php?edit=<?php echo $row['Reg_id']?>">Delete</a>
+				<td><a href="update.php?update=<?php echo $row['Reg_id']?>">Update</a>
+
+
+		</tr>
+		<?php
+	}
+	?>
+</table></center>
+
+</body>
+</html>

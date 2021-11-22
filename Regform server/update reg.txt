@@ -1,0 +1,114 @@
+<?php 
+include "connection.php";
+$updt=$_GET['update'];
+$qry=mysqli_query($con,"select * from registration where Reg_id='$updt'");
+$data=mysqli_fetch_assoc($qry);
+
+if (isset($_POST['sub']))
+{
+  $name=$_POST['Name'];
+  $Email=$_POST['email'];
+  $Mobno=$_POST['mobno'];
+
+$updt=mysqli_query($con,"UPDATE `registration` SET `Name`='$name',`email_id`='$Email',`mob_no`='$mob_no'WHERE Reg_id='$updt'");
+echo "<script>alert('Registre Complete')</script>";
+header("location:table.php");
+}
+
+?>
+<html>
+<head>
+	</head>
+	<body>
+
+		<form method="POST" enctype="multipart/form-data">
+			<center><table border="2px">
+			
+			<tr>
+			<td>Name</td>
+			<td><input type="text" name="Name" id="name_id" placeholder="Enter your Name" onkeyup="clearmsg('sp1')" >
+				<span id="sp1" style="color: red;" ></span></td>
+		</tr>
+		<tr>
+			<td>Email</td>
+			<td><input type="text" name="email" id="email" placeholder="Enter Email" onkeyup="clearmsg('sp2')">
+				<span id="sp2" style="color: red;"></span></td>
+		</tr>
+		<tr>
+			<td>Mob no</td>
+			<td><input type="text" name="mobno" id="mob_no" placeholder="Enter Number" onkeyup="clearmsg('sp3')">
+				<span id="sp3" style="color:red;"></span></td>
+		</tr>
+		<!-- <tr>
+ 			<td>Gender</td>
+			<td>Male<input type="radio" name="gender" id="gender" value="male" >Female<input type="radio" name="gender" value="female">
+		</tr> -->
+		<!-- <tr>
+			<td>User Name</td>
+			<td><input type="text" name="user_name" id="user_name" placeholder="User Name" onkeyup="clearmsg('sp5')">
+				<span id="sp5" style="color: red;"></span></td>
+
+		</tr>
+		<tr>
+			<td>Password</td>
+			<td><input type="Password" name="passwd" id="Password" placeholder="Password" onkeyup="clearmsg('sp6')" >
+				<span id="sp6" style="color:red"></td>
+
+		</tr>
+		<tr>
+			<td>Files</td>
+			<td><input type="file" name="Files" id="Files"></td>
+		</tr> -->
+ 
+	</center>
+	<center><td><input type="submit" name="sub" onclick="return valid()"></td></center>
+</table>
+	</form>
+</body>
+
+<script type="text/javascript">
+	function valid(){
+	var name=document.getElementById("name_id").value;
+	var Email=document.getElementById("email").value;
+	var mobno=document.getElementById("mob_no").value;
+	var usename=document.getElementById("user_name").value;
+  var password=document.getElementById("Password").value;
+
+  if(name=="")
+  {
+  	document.getElementById("sp1").innerHTML="Please enter the name";
+     return false;
+  }
+  if(Email==""||Email.indexOf("@")==-1||Email.indexOf(".")==-1)
+  {
+  	document.getElementById("sp2").innerHTML="Enter email";
+     return false;
+  }
+  if(mobno==""||isNaN(mobno)||mobno.length<10)
+  {
+  	document.getElementById("sp3").innerHTML=" Enter mobile number";
+     return false;
+  }
+  	if(usename=="")
+  	{
+
+  		document.getElementById("sp5").innerHTML="Enter user name";
+     return false;
+  }
+  if(password=="")
+  {
+  	document.getElementById("sp6").innerHTML="Please enter password";
+  	   
+  	 return false;
+  	}
+  }
+  function clearmsg(sp)
+  {
+  	document.getElementById(sp).innerHTML="";
+
+  }
+
+</script>
+</html>
+
+
