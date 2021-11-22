@@ -1,0 +1,79 @@
+<?php
+	include "inter.php";
+	if (isset($_POST['sub']))
+{
+  $name=$_POST['Name'];
+  $quantity=$_POST['qunt'];
+  $price=$_POST['price'];
+  $image=$_FILES['image']['name'];
+ if ($image !="") 
+{
+	$imagearray = pathinfo($_FILES['image']['name']);
+	$image = rand();
+	$image_ext = $imagearray["extension"];
+
+	if (check_ext($image_ext))
+	{
+		$newimage= $image.".".$image_ext;
+		move_uploaded_file($_FILES['image']['tmp_name'],"photos/".$newimage);
+	}
+	else {
+		echo "<script>alert('check file extension')</script>";
+	}
+
+}
+mysqli_query($con,"INSERT INTO `product`( `Product_name`, `Quantity`, `Price`, `Image`) VALUES('$name','$quantity','$price','$image')");
+echo"<script>alert('Registration Complted')</script>";
+
+}
+function check_ext($file_ext)
+{
+	$allowed = array('png','jpg','jpg','jpeg');
+	
+		if (in_array($file_ext,$allowed))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	
+}
+
+
+?>
+<html>
+<head>
+	</head>
+	<body>
+
+		<form method="POST" enctype="multipart/form-data">
+			<center><table border="2px">
+			
+			<tr>
+			<td> Product Name</td>
+			<td><input type="text" name="Name" id="name_id" placeholder="Enter product Name" >
+				</td>
+		</tr>
+		<tr>
+			<td>Quantity</td>
+			<td><input type="number" name="qunt" id="num" >
+				
+		</tr>
+		<tr>
+			<td>Price</td>
+			<td><input type="text" name="price" id="price"></td>
+		</tr>
+ 			
+		<tr>
+			<td>Image</td>
+			<td><input type="file" name="image" id="imge" ></td>
+
+		</tr>
+
+	</center>
+	<center><td><input type="submit" name="sub" onclick="return valid()"></td></center>
+</table>
+	</form>
+</body>

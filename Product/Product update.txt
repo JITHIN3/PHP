@@ -1,0 +1,57 @@
+<?php 
+include "inter.php";
+$update=$_GET['update'];
+$qry=mysqli_query($con,"select * from registration where Product_id='$updt'");
+$data=mysqli_fetch_assoc($qry);
+
+if (isset($_POST['sub']))
+{
+  $name=$_POST['Name'];
+  $quantity=$_POST['qunt'];
+  $price=$_POST['price'];
+  $image=$_POST['image'];
+
+
+$update=mysqli_query($con, "UPDATE`product` SET `Product_id`='$name',`Product_name`='$quantity',`Quantity`='',`Price`='$price',`Image`='$image' WHERE Prodoct_id=$update'");
+echo "<script>alert('Update Complete')</script>";
+header("location:product view.php");
+}
+
+?>
+
+
+
+<html>
+<head>
+	</head>
+	<body>
+
+		<form method="POST" enctype="multipart/form-data">
+			<center><table border="2px">
+			
+			<tr>
+			<td> Product Name</td>
+			<td><input type="text" name="Name" id="name_id" placeholder="Enter product Name" >
+				</td>
+		</tr>
+		<tr>
+			<td>Quantity</td>
+			<td><input type="number" name="qunt" id="num" >
+				
+		</tr>
+		<tr>
+			<td>Price</td>
+			<td><input type="text" name="price" id="price"></td>
+		</tr>
+ 			
+		<tr>
+			<td>Image</td>
+			<td><input type="file" name="image" id="imge" ></td>
+
+		</tr>
+
+	</center>
+	<center><td><input type="submit" name="sub" onclick="return valid()"></td></center>
+</table>
+	</form>
+</body>
